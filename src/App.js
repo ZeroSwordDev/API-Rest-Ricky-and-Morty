@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import Nav from "./components/Nav";
+import React, { Fragment, useState } from "react";
+import Cards from "./components/Cards";
+import About from "./components/About";
+import Detail from "./components/Detail";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import NotFound from "./components/NotFound";
 
 function App() {
+  const [Character, setCharacter] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Nav setCharacter={setCharacter} Characters={Character} />
+      <Routes>
+        <Route excat path="/about" element={<About />} />
+        <Route excat path="/detail/:detailId" element={<Detail />} />
+        <Route path="*" element={<NotFound />} />
+        <Route
+          excat
+          path="/"
+          element={<Cards Character={Character} setCharacter={setCharacter} />}
+        />
+      </Routes>
+    </Fragment>
   );
 }
 
