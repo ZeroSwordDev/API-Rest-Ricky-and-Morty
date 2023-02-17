@@ -32,7 +32,7 @@ const DetailCard = ({ characterDetailValue }) => {
       <h2>Origin :{origin.name}</h2>
       <CardImage>
       <Image src={image} alt="" />
-      <button> <Link to={'/'}>Regresar </Link></button>
+      <button> <Link to={'/home'}>Regresar </Link></button>
       </CardImage>
     </Card>
   );

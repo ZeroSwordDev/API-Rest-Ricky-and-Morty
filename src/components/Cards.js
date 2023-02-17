@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Card from './Card'
 
+
 const DivContainer = styled.div`
 
 
@@ -41,5 +42,6 @@ const Cards = ({Character, setCharacter}) => {
         </DivContainer>
      );
 }
- 
+
+
 export default Cards;

@@ -24,7 +24,7 @@ const DivEnlaces = styled.div`
   padding: 20px;
 `;
 
-const Nav = ({ setCharacter, Characters }) => {
+const Nav = ({ setCharacter, Characters , logout }) => {
   const onSearch = (character) => {
     fetch(`https://rickandmortyapi.com/api/character/${character}`)
       .then((response) => response.json())
@@ -48,14 +48,20 @@ const Nav = ({ setCharacter, Characters }) => {
 
   return (
     <div>
-      <StyledContainer className="container">
+      <StyledContainer >
         <DivEnlaces>
-          <Link to="about" className="buttons">
+          <Link to="about" >
             About
           </Link>
-          <Link to="/" className="buttons">
+          <Link to="/home" >
             Home
           </Link>
+          <Link to="/favorites" >
+            Favorites
+          </Link>
+         <button onClick={logout}> 
+          Logout
+          </button>
         </DivEnlaces>
 
       <button onClick={ButtonRandom}> Personaje Random</button>

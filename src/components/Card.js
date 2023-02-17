@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect  , useState} from "react";
+import {  useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+
+import { addFavorite, deleteFavorite } from "../redux/actions";
 
 
 const Container = styled.div`
@@ -43,13 +47,48 @@ const Parrafo = styled.p`
   color: black;
 `;
 
- const Card = ({ Character , onClose, id}) => {
+ const Card = ({ Character , onClose, id }) => {
   const { name, species, gender, image } = Character;
+
+  const [isFav, setIsFav] = useState(false);
+  const dispatch = useDispatch()
+  const myFavorites = useSelector((state) => state.myFavorites)
+
+
+  
+  
+  useEffect(() => {
+    myFavorites?.forEach((fav) => {
+      if (fav.id === id) {
+        setIsFav(true);
+      }
+    });
+    // eslint-disable-next-line
+  }, [myFavorites]);
+
+  const handleFavorite = () => {
+    if (isFav) {
+      setIsFav(false);
+      // props.deleteFavorite(props.id);
+      dispatch(deleteFavorite(id))
+    } else {
+      setIsFav(true);
+      dispatch(addFavorite(Character))
+      // props.addFavorite(props);
+    }
+
+  };
 
   return (
     <Container>
       <Column>
         <Button onClick={() => onClose(id)}>Eliminar</Button>
+
+        {isFav ? (
+        <button  onClick={handleFavorite}>❤️</button>
+      ) : (
+        <button  onClick={handleFavorite}>🤍</button>
+      )}
 
         <Link to= {`/detail/${id}`}> <Name>{name}</Name> </Link>
         <Parrafo>
@@ -62,5 +101,23 @@ const Parrafo = styled.p`
   );
 };
 
+/* export const mapStateToProps= (state) =>{
+  return{
+     myFavorites: state.myFavorites,
+  }
+}
 
-export default Card
+
+
+export const mapDispatchToProps=(dispatch) =>{
+  return{
+     addFavorite: function(character){
+       dispatch(addFavorite(character))
+     },
+     deleteFavorite: function(id){
+       dispatch(deleteFavorite(id))
+     },
+  }
+} */
+
+export default Card;
